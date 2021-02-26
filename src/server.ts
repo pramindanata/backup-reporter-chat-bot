@@ -5,7 +5,9 @@ import 'express-async-errors';
 import { createBot } from '@/bot';
 import { config } from '@/config';
 
-import { createReportRouter, createRootRouter } from '@/modules';
+import { createRouter as createRootRouter } from '@/modules/root';
+import { createRouter as createReportRouter } from '@/modules/report';
+import { handleError } from '@/modules/common';
 
 export function createServer(): Express {
   const app = express();
@@ -18,6 +20,8 @@ export function createServer(): Express {
 
   app.use('/', createRootRouter());
   app.use('/report', createReportRouter());
+
+  app.use(handleError());
 
   return app;
 }

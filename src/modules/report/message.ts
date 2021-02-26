@@ -1,4 +1,4 @@
-import { Report } from '@/interface';
+import { Report } from './interface';
 
 export function generateMessage(report: Report): string {
   const { detail } = report;
