@@ -1,16 +1,29 @@
-export interface Report {
-  status: 'Success' | 'Failed';
+export interface SuccessReport {
   computerName: string;
   projectName: string;
   startedAt: string;
   finishedAt: string;
   ip: string;
-  detail: DBReportDetail;
+  detail: SuccessReportDetail;
 }
 
-export interface DBReportDetail {
+export interface FailedReport {
+  computerName: string;
+  projectName: string;
+  startedAt: string;
+  ip: string;
+  detail: FailedReportDetail;
+}
+
+export interface SuccessReportDetail {
   name: string;
   type: 'PostgreSQL' | 'MySQL' | 'MongoDB';
   filePath: string;
   fileSize: number;
+}
+
+export interface FailedReportDetail {
+  name: string;
+  type: 'PostgreSQL' | 'MySQL' | 'MongoDB';
+  message: string;
 }
