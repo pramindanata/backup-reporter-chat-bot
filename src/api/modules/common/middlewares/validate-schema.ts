@@ -1,6 +1,7 @@
 import { ObjectSchema } from 'joi';
 import { RequestHandler, Request, Response, NextFunction } from 'express';
-import { PayloadSource, SchemaValidationException } from '@/lib/joi';
+import { PayloadSource } from '@/api/lib/joi';
+import { SchemaValidationException } from '../exceptions';
 
 export function validateSchema(
   schema: ObjectSchema,

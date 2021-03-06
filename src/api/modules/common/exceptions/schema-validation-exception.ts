@@ -1,18 +1,6 @@
-import { HTTPException } from '@/modules/common/exceptions';
-import baseJoi, { ValidationError } from 'joi';
-
-export type PayloadSource = 'body' | 'params' | 'query';
-
-export const joi = baseJoi.defaults((schema) =>
-  schema.options({
-    abortEarly: false,
-    convert: true,
-    stripUnknown: true,
-    errors: {
-      escapeHtml: true,
-    },
-  }),
-);
+import { ValidationError } from 'joi';
+import { PayloadSource } from '@/api/lib/joi';
+import { HTTPException } from './http-exception';
 
 export interface SchemaValidationExceptionBody {
   data: {

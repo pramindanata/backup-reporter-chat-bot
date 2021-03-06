@@ -1,10 +1,7 @@
 import { injectable } from 'tsyringe';
 import { Telegram } from 'telegraf';
 import { Request, Response } from 'express';
-import {
-  generateFailedMessage,
-  generateSuccessMessage,
-} from '@/modules/report/message';
+import { generateFailedMessage, generateSuccessMessage } from './message';
 
 @injectable()
 export class ReportController {

@@ -6,7 +6,7 @@ dotenv.config();
 moduleAlias.addAlias('@', __dirname);
 
 import { config } from '@/config';
-import { createServer } from '@/server';
+import { createServer } from '@/api';
 
 const app = createServer();
 
