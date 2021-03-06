@@ -8,14 +8,19 @@ import { config } from '@/config';
 import { createRouter as createRootRouter } from '@/api/modules/root';
 import { createRouter as createReportRouter } from '@/api/modules/report';
 import { handleError } from '@/api/modules/common';
+import { Environment } from '@/constant';
 
 export function createServer(): Express {
   const app = express();
   const bot = createBot();
 
-  bot.telegram.setWebhook(`${config.app.host}${config.bot.webhookPath}`);
+  if (config.app.env === Environment.PROD) {
+    bot.telegram.setWebhook(`${config.app.host}${config.bot.webhookPath}`);
+    app.use(bot.webhookCallback(config.bot.webhookPath));
+  } else {
+    bot.launch();
+  }
 
-  app.use(bot.webhookCallback(config.bot.webhookPath));
   app.use(bodyParser.json());
 
   app.use('/', createRootRouter());
