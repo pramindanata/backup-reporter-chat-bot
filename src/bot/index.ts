@@ -1,7 +1,13 @@
 import { Telegraf, Scenes, session } from 'telegraf';
 import { container } from '@/container';
-import { auth, BotContext, handleException } from './modules/common';
-import { RegisterCommand, RegisterScene } from './modules/auth';
+import {
+  auth,
+  BotContext,
+  Command,
+  guest,
+  handleException,
+} from './modules/common';
+import { registerCommand, RegisterScene } from './modules/auth';
 import { setupState } from './modules/user';
 
 export function createBot(): Telegraf<BotContext> {
@@ -12,7 +18,7 @@ export function createBot(): Telegraf<BotContext> {
   bot.use(setupState);
   bot.use(stage.middleware());
 
-  RegisterCommand(bot);
+  bot.command(Command.REGISTER, guest, registerCommand);
 
   bot.command('yeet', auth, (ctx) => {
     return ctx.reply('Yeeeeees');
