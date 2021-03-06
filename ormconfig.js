@@ -18,6 +18,6 @@ module.exports = {
   database: env.DB_NAME || 'backup_reporter',
   username: env.DB_USERNAME || 'postgres',
   password: env.DB_PASSWORD || '',
-  logging: 'all',
+  logging: ['error'],
   entities: [`${rootDir}/models/*.{js,ts}`],
 };

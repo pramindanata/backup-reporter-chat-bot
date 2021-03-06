@@ -1,22 +1,18 @@
 import { injectable } from 'tsyringe';
-import { AccessToken, AccessTokenActivationStatus } from '@/models';
-import {
-  AccessTokenRepository,
-  TelegramAccountRepository,
-} from '@/repositories';
+import { AccessToken } from '@/models';
+import { AccessTokenRepository } from '@/repositories';
 import { User } from 'typegram';
 import { ActivateAccessTokenUOW } from './activate-access-token-uow';
 
 @injectable()
 export class AuthService {
   constructor(
-    private accessTokenRepository: AccessTokenRepository,
-    private telegramAccountRepository: TelegramAccountRepository,
+    private accessTokenRepo: AccessTokenRepository,
     private activateAccessTokenUOW: ActivateAccessTokenUOW,
   ) {}
 
   async getTokenByValue(value: string): Promise<AccessToken | undefined> {
-    return this.accessTokenRepository.findOne({
+    return this.accessTokenRepo.findOne({
       value,
     });
   }

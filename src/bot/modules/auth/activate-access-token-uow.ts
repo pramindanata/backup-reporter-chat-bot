@@ -1,8 +1,4 @@
-import {
-  AccessToken,
-  AccessTokenActivationStatus,
-  TelegramAccount,
-} from '@/models';
+import { AccessToken, AccessTokenActivationStatus } from '@/models';
 import {
   AccessTokenRepository,
   TelegramAccountRepository,
@@ -13,23 +9,25 @@ import { EntityManager, getConnection } from 'typeorm';
 export class ActivateAccessTokenUOW {
   async execute(accessToken: AccessToken, user: User): Promise<void> {
     const queryRunner = getConnection().createQueryRunner();
-    const {
-      accessTokenRepository,
-      telegramAccountRepository,
-    } = this.createRepos(queryRunner.manager);
+    const { accessTokenRepo, telegramAccountRepo } = this.createRepos(
+      queryRunner.manager,
+    );
 
     await queryRunner.startTransaction();
 
     try {
-      const telegramAccount = await this.createTelegramAccount(
-        telegramAccountRepository,
-        user,
-      );
+      const telegramAccount = await telegramAccountRepo.save({
+        accountId: user.id,
+        firstName: user.first_name,
+        username: user.username,
+      });
 
-      await this.updateAccessToken(
-        accessTokenRepository,
-        accessToken,
-        telegramAccount,
+      await accessTokenRepo.update(
+        { id: accessToken.id },
+        {
+          activationStatus: AccessTokenActivationStatus.ACTIVATED,
+          telegramAccount,
+        },
       );
 
       await queryRunner.commitTransaction();
@@ -43,43 +41,14 @@ export class ActivateAccessTokenUOW {
   }
 
   private createRepos(manager: EntityManager) {
-    const accessTokenRepository = manager.getCustomRepository(
-      AccessTokenRepository,
-    );
-    const telegramAccountRepository = manager.getCustomRepository(
+    const accessTokenRepo = manager.getCustomRepository(AccessTokenRepository);
+    const telegramAccountRepo = manager.getCustomRepository(
       TelegramAccountRepository,
     );
 
     return {
-      accessTokenRepository,
-      telegramAccountRepository,
+      accessTokenRepo,
+      telegramAccountRepo,
     };
-  }
-
-  private async createTelegramAccount(
-    repo: TelegramAccountRepository,
-    user: User,
-  ): Promise<TelegramAccount> {
-    return repo.save({
-      accountId: user.id,
-      firstName: user.first_name,
-      username: user.username,
-    });
-  }
-
-  private async updateAccessToken(
-    repo: AccessTokenRepository,
-    accessToken: AccessToken,
-    telegramAccount: TelegramAccount,
-  ): Promise<void> {
-    await repo.update(
-      {
-        id: accessToken.id,
-      },
-      {
-        activationStatus: AccessTokenActivationStatus.ACTIVATED,
-        telegramAccount,
-      },
-    );
   }
 }
