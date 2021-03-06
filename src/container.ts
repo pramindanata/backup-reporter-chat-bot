@@ -1,7 +1,12 @@
 import { Telegraf, Telegram } from 'telegraf';
+import { getCustomRepository } from 'typeorm';
 import { container, instanceCachingFactory } from 'tsyringe';
 import { config } from '@/config';
 import { BotContext } from '@/bot/modules/common';
+import {
+  AccessTokenRepository,
+  TelegramAccountRepository,
+} from '@/repositories';
 
 container.register<Telegraf<BotContext>>(Telegraf, {
   useFactory: instanceCachingFactory(() => {
@@ -15,6 +20,18 @@ container.register(Telegram, {
 
     return bot.telegram;
   }),
+});
+
+container.register(AccessTokenRepository, {
+  useFactory: () => {
+    return getCustomRepository(AccessTokenRepository);
+  },
+});
+
+container.register(TelegramAccountRepository, {
+  useFactory: () => {
+    return getCustomRepository(TelegramAccountRepository);
+  },
 });
 
 export { container };
