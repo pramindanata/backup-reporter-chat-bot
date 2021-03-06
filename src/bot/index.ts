@@ -1,6 +1,6 @@
 import { Telegraf, Scenes, session } from 'telegraf';
 import { container } from '@/container';
-import { auth, BaseException, BotContext } from './modules/common';
+import { auth, BotContext, handleException } from './modules/common';
 import { RegisterCommand, RegisterScene } from './modules/auth';
 import { setupState } from './modules/user';
 
@@ -22,17 +22,7 @@ export function createBot(): Telegraf<BotContext> {
     return ctx.reply('Yo...');
   });
 
-  bot.catch(async (err, ctx) => {
-    if (err instanceof BaseException) {
-      await ctx.replyWithHTML(err.getMessage());
-
-      if (ctx.callbackQuery) {
-        await ctx.answerCbQuery();
-      }
-
-      return;
-    }
-  });
+  bot.catch(handleException);
 
   return bot;
 }
