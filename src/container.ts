@@ -1,10 +1,11 @@
 import { Telegraf, Telegram } from 'telegraf';
 import { container, instanceCachingFactory } from 'tsyringe';
 import { config } from '@/config';
+import { BotContext } from '@/bot/modules/common';
 
-container.register<Telegraf>(Telegraf, {
+container.register<Telegraf<BotContext>>(Telegraf, {
   useFactory: instanceCachingFactory(() => {
-    return new Telegraf(config.bot.token);
+    return new Telegraf<BotContext>(config.bot.token);
   }),
 });
 
