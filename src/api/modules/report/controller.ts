@@ -1,32 +1,28 @@
 import { injectable } from 'tsyringe';
 import { Telegram } from 'telegraf';
 import { Request, Response } from 'express';
-import { generateFailedMessage, generateSuccessMessage } from './message';
+import { Event } from '@/api/event';
+import { EventType } from '../common';
+import { FailedReport, SuccessReport } from './interface';
 
 @injectable()
 export class ReportController {
-  constructor(private telegram: Telegram) {}
+  constructor(private event: Event) {}
 
   async success(req: Request, res: Response): Promise<any> {
-    const chatId = 389092770;
     const { body } = req;
-    const message = generateSuccessMessage(body);
+    const report = body as SuccessReport;
 
-    await this.telegram.sendMessage(chatId, message, {
-      parse_mode: 'HTML',
-    });
+    this.event.emit(EventType.SUCCESS_REPORT_RECEIVED, report);
 
     return res.send('OK');
   }
 
   async failed(req: Request, res: Response): Promise<any> {
-    const chatId = 389092770;
     const { body } = req;
-    const message = generateFailedMessage(body);
+    const report = body as FailedReport;
 
-    await this.telegram.sendMessage(chatId, message, {
-      parse_mode: 'HTML',
-    });
+    this.event.emit(EventType.FAILED_REPORT_RECEIVED, report);
 
     return res.send('OK');
   }
