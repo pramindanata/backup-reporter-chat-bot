@@ -15,4 +15,12 @@ export const handleException = async (
 
     return;
   }
+
+  await ctx.reply(err.message);
+
+  if (ctx.callbackQuery) {
+    await ctx.answerCbQuery();
+  }
+
+  console.error(err);
 };

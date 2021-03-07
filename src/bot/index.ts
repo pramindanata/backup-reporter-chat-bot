@@ -9,6 +9,7 @@ import {
 } from './modules/common';
 import { registerCommand, RegisterScene } from './modules/auth';
 import { setupState } from './modules/user';
+import { helpCommand, startCommand } from './modules/information';
 
 export function createBot(): Telegraf<BotContext> {
   const bot = container.resolve<Telegraf<BotContext>>(Telegraf);
@@ -18,6 +19,8 @@ export function createBot(): Telegraf<BotContext> {
   bot.use(setupState);
   bot.use(stage.middleware());
 
+  bot.command(Command.START, startCommand);
+  bot.command(Command.HELP, helpCommand);
   bot.command(Command.REGISTER, guest, registerCommand);
 
   bot.command('yeet', auth, (ctx) => {

@@ -5,4 +5,6 @@ export enum Scene {
 export enum Command {
   EXIT = '/exit',
   REGISTER = '/register',
+  HELP = '/help',
+  START = '/start',
 }
