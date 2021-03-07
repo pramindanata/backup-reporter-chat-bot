@@ -1,5 +1,6 @@
 import EventEmitter from 'events';
-import { AnyEnum, EventListener } from '@/interface';
+import { AnyEnum, Ctor, EventListener } from '@/interface';
+import { container } from '@/container';
 
 export abstract class BaseEvent<E extends AnyEnum, D extends Record<any, any>> {
   private eventEmitter: EventEmitter;
@@ -19,10 +20,20 @@ export abstract class BaseEvent<E extends AnyEnum, D extends Record<any, any>> {
 
   protected addListener<T extends E>(
     event: T,
-    listener: EventListener<D[T]>,
+    listenerCtor: Ctor<EventListener<D[T]>>,
   ): void {
+    const listener = container.resolve(listenerCtor);
+
     this.eventListenerDict[event] = true;
-    this.eventEmitter.addListener(event, listener);
+    this.eventEmitter.addListener(event, (payload) => {
+      listener.handle(payload).catch((err) => {
+        this.eventEmitter.emit('error', err);
+      });
+    });
+  }
+
+  protected onError(listener: (payload: any) => void): void {
+    this.eventEmitter.on('error', listener);
   }
 
   private shouldListenerExist(event: string): boolean {

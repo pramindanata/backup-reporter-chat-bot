@@ -1,10 +1,7 @@
 import { singleton } from 'tsyringe';
 import { BaseEvent } from '@/core/event';
 import { EventTypePayloadDict, EventType } from './modules/common';
-import {
-  failedReportReceivedListener,
-  successReportReceivedListener,
-} from './modules/report';
+import { SendFailedReport, SendSuccessReport } from './modules/report';
 
 @singleton()
 export class Event extends BaseEvent<EventType, EventTypePayloadDict> {
@@ -15,14 +12,11 @@ export class Event extends BaseEvent<EventType, EventTypePayloadDict> {
   }
 
   private register() {
-    this.addListener(
-      EventType.SUCCESS_REPORT_RECEIVED,
-      successReportReceivedListener,
-    );
+    this.addListener(EventType.SUCCESS_REPORT_RECEIVED, SendSuccessReport);
+    this.addListener(EventType.FAILED_REPORT_RECEIVED, SendFailedReport);
 
-    this.addListener(
-      EventType.FAILED_REPORT_RECEIVED,
-      failedReportReceivedListener,
-    );
+    this.onError((err) => {
+      console.error(err);
+    });
   }
 }

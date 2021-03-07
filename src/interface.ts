@@ -1,2 +1,7 @@
+export type Ctor<T = Record<string, any>> = new (...args: any[]) => T;
+
 export type AnyEnum<T = string> = T;
-export type EventListener<T> = (payload: T) => void;
+
+export interface EventListener<T> {
+  handle: (payload: T) => Promise<void>;
+}
