@@ -1,8 +1,13 @@
+import { injectable } from 'tsyringe';
 import { EventListener } from '@/interface';
 import { FailedReport } from '../interface';
+import { ReportService } from '../service';
 
+@injectable()
 export class SendFailedReport implements EventListener<FailedReport> {
+  constructor(private reportService: ReportService) {}
+
   async handle(payload: FailedReport): Promise<void> {
-    console.log(payload);
+    await this.reportService.sendFailedReportToAllAccount(payload);
   }
 }
