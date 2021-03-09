@@ -3,6 +3,7 @@ import { container } from '@/container';
 import { validateSchema } from '@/api/modules/common';
 import { ReportController } from './controller';
 import { successSchema, failedSchema } from './schema';
+import { checkToken } from './middlewares';
 
 export function createRouter(): Router {
   const router = Router();
@@ -11,12 +12,14 @@ export function createRouter(): Router {
 
   router.post(
     '/success',
+    checkToken(),
     validateSchema(successSchema, 'body'),
     success.bind(controller),
   );
 
   router.post(
     '/failed',
+    checkToken(),
     validateSchema(failedSchema, 'body'),
     failed.bind(controller),
   );
