@@ -1,4 +1,4 @@
-import { FailedReport, SuccessReport } from '../report';
+import { FailedReport, SuccessReport } from './modules/report';
 import { EventType } from './constant';
 
 export interface EventTypePayloadDict {

@@ -1,8 +1,7 @@
 import { injectable } from 'tsyringe';
-import { Telegram } from 'telegraf';
 import { Request, Response } from 'express';
-import { Event } from '@/api/event';
-import { EventType } from '../common';
+import { Event } from '@/api/core';
+import { EventType } from '@/api/constant';
 import { FailedReport, SuccessReport } from './interface';
 
 @injectable()

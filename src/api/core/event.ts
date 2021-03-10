@@ -1,7 +1,8 @@
 import { singleton } from 'tsyringe';
-import { BaseEvent } from '@/core/event';
-import { EventTypePayloadDict, EventType } from './modules/common';
-import { SendFailedReport, SendSuccessReport } from './modules/report';
+import { BaseEvent } from '@/core';
+import { SendFailedReport, SendSuccessReport } from '../modules/report';
+import { EventTypePayloadDict } from '../interface';
+import { EventType } from '../constant';
 
 @singleton()
 export class Event extends BaseEvent<EventType, EventTypePayloadDict> {
