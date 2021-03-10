@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe';
 import { Request, Response } from 'express';
 import { FailedReport, SuccessReport } from './interface';
-import { EventType, Event } from '../common';
+import { Event, EventType } from '@/core/event';
 
 @injectable()
 export class ReportController {
