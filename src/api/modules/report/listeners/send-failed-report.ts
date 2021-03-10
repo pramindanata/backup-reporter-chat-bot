@@ -1,5 +1,5 @@
 import { injectable } from 'tsyringe';
-import { EventListener } from '@/interface';
+import { EventListener } from '@/shared/interface';
 import { FailedReport } from '../interface';
 import { ReportService } from '../service';
 

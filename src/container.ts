@@ -6,7 +6,7 @@ import { BotContext } from '@/bot/modules/common';
 import {
   AccessTokenRepository,
   TelegramAccountRepository,
-} from '@/repositories';
+} from '@/shared/repositories';
 
 container.register<Telegraf<BotContext>>(Telegraf, {
   useFactory: instanceCachingFactory(() => {

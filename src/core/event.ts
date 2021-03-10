@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import { AnyEnum, Ctor, EventListener } from '@/interface';
+import { AnyEnum, Ctor, EventListener } from '@/shared/interface';
 import { container } from '@/container';
 
 export abstract class BaseEvent<E extends AnyEnum, D extends Record<any, any>> {

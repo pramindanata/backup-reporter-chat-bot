@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
-import { DateTimeFormat } from '@/constant';
-import { formatToReadableFileSize } from '@/util/filesize';
+import { DateTimeFormat } from '@/shared/constant';
+import { formatToReadableFileSize } from '@/shared/util/filesize';
 import { SuccessReport, FailedReport } from './interface';
 
 export function generateSuccessMessage(report: SuccessReport): string {

@@ -1,4 +1,4 @@
-import { TelegramAccount } from '@/models';
+import { TelegramAccount } from '@/shared/models';
 import { Context, Scenes } from 'telegraf';
 
 export interface BotContext extends Context {

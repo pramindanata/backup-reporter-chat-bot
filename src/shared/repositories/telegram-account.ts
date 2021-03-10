@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { TelegramAccount } from '@/models';
-import { chunkById } from '@/util/typeorm';
+import { TelegramAccount } from '@/shared/models';
+import { chunkById } from '@/shared/util/typeorm';
 
 type ChunkCB<T> = (chunk: T[], index: number) => Promise<void>;
 

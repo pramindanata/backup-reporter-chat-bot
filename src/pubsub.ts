@@ -1,6 +1,6 @@
 import Redis from 'redis';
 import { config } from './config';
-import { PubSubChannel } from './constant';
+import { PubSubChannel } from './shared/constant';
 
 export function startPubSub(): void {
   const redis = Redis.createClient({

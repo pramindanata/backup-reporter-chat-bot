@@ -1,6 +1,6 @@
 import { injectable } from 'tsyringe';
-import { AccessToken } from '@/models';
-import { AccessTokenRepository } from '@/repositories';
+import { AccessToken } from '@/shared/models';
+import { AccessTokenRepository } from '@/shared/repositories';
 import { User } from 'typegram';
 import { ActivateAccessTokenUOW } from './activate-access-token-uow';
 

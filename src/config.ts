@@ -1,4 +1,4 @@
-import { Environment } from './constant';
+import { Environment } from './shared/constant';
 
 const { env } = process;
 

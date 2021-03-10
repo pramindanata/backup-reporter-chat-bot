@@ -1,6 +1,6 @@
 import { injectable } from 'tsyringe';
-import { TelegramAccountRepository } from '@/repositories';
-import { TelegramAccount } from '@/models';
+import { TelegramAccountRepository } from '@/shared/repositories';
+import { TelegramAccount } from '@/shared/models';
 
 @injectable()
 export class UserService {

@@ -1,9 +1,9 @@
 import { injectable } from 'tsyringe';
 import { Telegram } from 'telegraf';
-import { TelegramAccountRepository } from '@/repositories';
+import { TelegramAccountRepository } from '@/shared/repositories';
 import { FailedReport, SuccessReport } from './interface';
 import { generateFailedMessage, generateSuccessMessage } from './message';
-import { TelegramAccount } from '@/models';
+import { TelegramAccount } from '@/shared/models';
 
 @injectable()
 export class ReportService {

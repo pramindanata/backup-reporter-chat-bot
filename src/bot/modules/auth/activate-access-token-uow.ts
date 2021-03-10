@@ -1,8 +1,8 @@
-import { AccessToken, AccessTokenActivationStatus } from '@/models';
+import { AccessToken, AccessTokenActivationStatus } from '@/shared/models';
 import {
   AccessTokenRepository,
   TelegramAccountRepository,
-} from '@/repositories';
+} from '@/shared/repositories';
 import { User } from 'typegram';
 import { EntityManager, getConnection } from 'typeorm';
 
