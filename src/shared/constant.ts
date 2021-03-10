@@ -12,6 +12,10 @@ export enum DateFormat {
   Basic = 'yyyy-MM-dd',
 }
 
+export const DepSymbol = {
+  RedisClient: Symbol('RedisClient'),
+};
+
 export enum PubSubChannel {
   AccessTokenDeleted = 'AccessTokenDeleted',
 }
