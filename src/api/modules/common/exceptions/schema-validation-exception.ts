@@ -1,5 +1,5 @@
 import { ValidationError } from 'joi';
-import { PayloadSource } from '@/api/lib/joi';
+import { PayloadSource } from '../utils/joi';
 import { HTTPException } from './http-exception';
 
 export interface SchemaValidationExceptionBody {
