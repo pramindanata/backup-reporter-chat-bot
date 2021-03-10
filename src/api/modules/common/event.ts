@@ -1,11 +1,11 @@
 import { singleton } from 'tsyringe';
-import { BaseEvent } from '@/core';
 import {
   FailedReport,
   SendFailedReport,
   SendSuccessReport,
   SuccessReport,
 } from '../report';
+import { BaseEvent } from '@/core/event';
 import { EventType } from '.';
 
 interface EventTypePayloadDict {

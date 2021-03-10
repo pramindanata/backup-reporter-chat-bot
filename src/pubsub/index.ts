@@ -1,5 +1,4 @@
-import { PubSub } from '@/core/pubsub';
-import { PubSubChannel } from '@/shared/constant';
+import { PubSub, PubSubChannel } from '@/core/pubsub';
 import { container } from '@/container';
 import { AccessTokenDeletedSubscriber } from './subscribers';
 

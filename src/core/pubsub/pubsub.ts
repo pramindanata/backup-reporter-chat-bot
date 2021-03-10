@@ -1,7 +1,9 @@
 import { RedisClient } from 'redis';
 import { container, inject, singleton } from 'tsyringe';
-import { DepSymbol, PubSubChannel } from '@/shared/constant';
-import { Ctor, PubSubPayloadDict, Subscriber } from '@/shared/interface';
+import { DepSymbol } from '@/shared/constant';
+import { Ctor } from '@/shared/interface';
+import { PubSubChannel } from './constant';
+import { PubSubPayloadDict, Subscriber } from './interface';
 
 @singleton()
 export class PubSub {

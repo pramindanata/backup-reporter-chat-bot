@@ -1,5 +1,8 @@
-import { PubSubChannel } from '@/shared/constant';
-import { AccessTokenDeletedPayload, Subscriber } from '@/shared/interface';
+import {
+  AccessTokenDeletedPayload,
+  PubSubChannel,
+  Subscriber,
+} from '@/core/pubsub';
 
 export class AccessTokenDeletedSubscriber
   implements Subscriber<PubSubChannel.AccessTokenDeleted> {
