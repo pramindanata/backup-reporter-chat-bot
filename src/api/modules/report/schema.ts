@@ -1,4 +1,4 @@
-import { joi } from '../common/utils/joi';
+import { joi } from '../shared/utils/joi';
 
 export const successSchema = joi.object({
   computerName: joi.string().required().trim(),

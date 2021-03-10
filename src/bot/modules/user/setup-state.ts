@@ -1,6 +1,6 @@
 import { Middleware } from 'telegraf';
 import { container } from '@/container';
-import { BotContext } from '../common';
+import { BotContext } from '../shared';
 import { UserService } from './service';
 
 export function setupState(): Middleware<BotContext> {

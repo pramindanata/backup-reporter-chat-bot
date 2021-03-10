@@ -1,4 +1,4 @@
-import { HTTPException } from '@/api/modules/common';
+import { HTTPException } from '@/api/modules/shared';
 
 export class InvalidTokenException extends HTTPException {
   getBody(): Record<string, any> {

@@ -1,5 +1,5 @@
 import { Middleware } from 'telegraf';
-import { BotContext } from '@/bot/modules/common';
+import { BotContext } from '@/bot/modules/shared';
 
 export const startCommand: Middleware<BotContext> = (ctx) => {
   return ctx.reply(

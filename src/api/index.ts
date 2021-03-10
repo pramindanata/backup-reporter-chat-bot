@@ -7,7 +7,7 @@ import { config } from '@/config';
 
 import { createRouter as createRootRouter } from '@/api/modules/root';
 import { createRouter as createReportRouter } from '@/api/modules/report';
-import { handleError } from '@/api/modules/common';
+import { handleError } from '@/api/modules/shared';
 import { Environment } from '@/shared/constant';
 
 export function createServer(): Express {

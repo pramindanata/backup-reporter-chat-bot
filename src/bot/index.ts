@@ -1,6 +1,6 @@
 import { Telegraf, Scenes, session } from 'telegraf';
 import { container } from '@/container';
-import { BotContext, Command, guest, handleException } from './modules/common';
+import { BotContext, Command, guest, handleException } from './modules/shared';
 import { registerCommand, RegisterScene } from './modules/auth';
 import { setupState } from './modules/user';
 import { helpCommand, startCommand } from './modules/information';

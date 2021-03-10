@@ -4,7 +4,7 @@ import Redis from 'redis';
 import { container, instanceCachingFactory } from 'tsyringe';
 
 import { config } from '@/config';
-import { BotContext } from '@/bot/modules/common';
+import { BotContext } from '@/bot/modules/shared';
 import {
   AccessTokenRepository,
   TelegramAccountRepository,

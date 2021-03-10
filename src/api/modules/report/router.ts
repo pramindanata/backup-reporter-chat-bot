@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { container } from '@/container';
-import { validateSchema } from '@/api/modules/common';
+import { validateSchema } from '@/api/modules/shared';
 import { ReportController } from './controller';
 import { successSchema, failedSchema } from './schema';
 import { checkToken } from './middlewares';

@@ -1,5 +1,5 @@
 import { Scenes } from 'telegraf';
-import { BotContext, Command, Scene } from '@/bot/modules/common';
+import { BotContext, Command, Scene } from '@/bot/modules/shared';
 import { container } from '@/container';
 import { AuthService } from './service';
 
