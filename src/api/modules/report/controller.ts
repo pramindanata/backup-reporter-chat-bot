@@ -1,6 +1,6 @@
 import { injectable } from 'tsyringe';
 import { Request, Response } from 'express';
-import { Event } from '@/api/event';
+import { Event } from '@/api/modules/common/event';
 import { FailedReport, SuccessReport } from './interface';
 import { EventType } from '../common';
 

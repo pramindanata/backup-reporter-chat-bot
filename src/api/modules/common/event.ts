@@ -5,8 +5,8 @@ import {
   SendFailedReport,
   SendSuccessReport,
   SuccessReport,
-} from './modules/report';
-import { EventType } from './modules/common';
+} from '../report';
+import { EventType } from '.';
 
 interface EventTypePayloadDict {
   [EventType.SUCCESS_REPORT_RECEIVED]: SuccessReport;
