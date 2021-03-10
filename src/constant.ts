@@ -11,3 +11,7 @@ export enum DateTimeFormat {
 export enum DateFormat {
   Basic = 'yyyy-MM-dd',
 }
+
+export enum PubSubChannel {
+  AccessTokenDeleted = 'AccessTokenDeleted',
+}
