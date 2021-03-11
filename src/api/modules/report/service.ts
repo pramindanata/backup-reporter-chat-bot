@@ -1,14 +1,22 @@
 import { injectable } from 'tsyringe';
 import { Telegram } from 'telegraf';
-import { TelegramAccountRepository } from '@/shared/repositories';
+import {
+  BackupReportLogRepository,
+  TelegramAccountRepository,
+} from '@/shared/repositories';
 import { FailedReport, SuccessReport } from './interface';
 import { generateFailedMessage, generateSuccessMessage } from './message';
-import { TelegramAccount } from '@/shared/models';
+import {
+  BackupReportLog,
+  BackupReportLogStatus,
+  TelegramAccount,
+} from '@/shared/models';
 
 @injectable()
 export class ReportService {
   constructor(
     private telegramAccountRepo: TelegramAccountRepository,
+    private backupReportLogRepo: BackupReportLogRepository,
     private telegram: Telegram,
   ) {}
 
@@ -34,6 +42,22 @@ export class ReportService {
         await this.sendBulkTelegramMessage(chunk, message);
       },
     );
+  }
+
+  async createSuccessReportLog(
+    report: SuccessReport,
+  ): Promise<BackupReportLog> {
+    return this.backupReportLogRepo.save({
+      status: BackupReportLogStatus.SUCCESS,
+      detail: report,
+    });
+  }
+
+  async createFailedReportLog(report: FailedReport): Promise<BackupReportLog> {
+    return this.backupReportLogRepo.save({
+      status: BackupReportLogStatus.SUCCESS,
+      detail: report,
+    });
   }
 
   private sendBulkTelegramMessage(chunk: TelegramAccount[], message: string) {

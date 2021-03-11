@@ -7,6 +7,7 @@ import { config } from '@/config';
 import { BotContext } from '@/bot/modules/shared';
 import {
   AccessTokenRepository,
+  BackupReportLogRepository,
   TelegramAccountRepository,
 } from '@/shared/repositories';
 import { DepSymbol } from './shared/constant';
@@ -45,6 +46,12 @@ container.register(AccessTokenRepository, {
 container.register(TelegramAccountRepository, {
   useFactory: () => {
     return getCustomRepository(TelegramAccountRepository);
+  },
+});
+
+container.register(BackupReportLogRepository, {
+  useFactory: () => {
+    return getCustomRepository(BackupReportLogRepository);
   },
 });
 
