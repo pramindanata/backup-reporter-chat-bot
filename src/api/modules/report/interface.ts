@@ -4,7 +4,10 @@ export interface SuccessReport {
   startedAt: string;
   finishedAt: string;
   ip: string;
-  detail: SuccessReportDetail;
+  dbName: string;
+  dbType: 'PostgreSQL' | 'MySQL' | 'MongoDB';
+  filePath: string;
+  fileSize: number;
 }
 
 export interface FailedReport {
@@ -12,18 +15,7 @@ export interface FailedReport {
   projectName: string;
   startedAt: string;
   ip: string;
-  detail: FailedReportDetail;
-}
-
-export interface SuccessReportDetail {
-  name: string;
-  type: 'PostgreSQL' | 'MySQL' | 'MongoDB';
-  filePath: string;
-  fileSize: number;
-}
-
-export interface FailedReportDetail {
-  name: string;
-  type: 'PostgreSQL' | 'MySQL' | 'MongoDB';
+  dbName: string;
+  dbType: 'PostgreSQL' | 'MySQL' | 'MongoDB';
   message: string;
 }
