@@ -18,7 +18,7 @@ export function createBot(): Telegraf<BotContext> {
   bot.command(Command.REGISTER, guest(), registerCommand);
 
   bot.on('text', (ctx) => {
-    return ctx.reply('Yo...');
+    return ctx.reply('Command does not found.');
   });
 
   bot.catch(handleException());
