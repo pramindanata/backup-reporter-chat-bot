@@ -1,11 +1,12 @@
 import { injectable } from 'tsyringe';
 import { Request, Response } from 'express';
 import { BackupReportLogUseCase } from '@/app/use-cases';
+import { Event, EventType } from '@/adapters/event';
 import { FailedReport, SuccessReport } from '@/entities';
 
 @injectable()
 export class BackupReportLogController {
-  constructor(private useCase: BackupReportLogUseCase) {}
+  constructor(private useCase: BackupReportLogUseCase, private event: Event) {}
 
   async success(req: Request, res: Response): Promise<any> {
     const { body } = req;
@@ -13,7 +14,7 @@ export class BackupReportLogController {
 
     await this.useCase.createSuccessLog(report);
 
-    // this.event.emit(EventType.SUCCESS_REPORT_RECEIVED, report);
+    this.event.emit(EventType.SUCCESS_REPORT_RECEIVED, report);
 
     return res.send('OK');
   }
@@ -24,7 +25,7 @@ export class BackupReportLogController {
 
     await this.useCase.createFailedLog(report);
 
-    // this.event.emit(EventType.FAILED_REPORT_RECEIVED, report);
+    this.event.emit(EventType.FAILED_REPORT_RECEIVED, report);
 
     return res.send('OK');
   }

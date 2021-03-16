@@ -5,12 +5,12 @@ export class BackupReportLog {
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(payload: Payload) {
-    this.id = payload.id;
-    this.status = payload.status;
-    this.detail = payload.detail;
-    this.createdAt = payload.createdAt;
-    this.updatedAt = payload.updatedAt;
+  constructor(props: BackupReportLogProps) {
+    this.id = props.id;
+    this.status = props.status;
+    this.detail = props.detail;
+    this.createdAt = props.createdAt;
+    this.updatedAt = props.updatedAt;
   }
 
   isSuccess(): boolean {
@@ -18,7 +18,7 @@ export class BackupReportLog {
   }
 }
 
-interface Payload {
+export interface BackupReportLogProps {
   id: string;
   status: BackupReportLogStatus;
   detail: SuccessReport | FailedReport;
