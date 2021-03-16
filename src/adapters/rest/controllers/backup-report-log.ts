@@ -28,4 +28,8 @@ export class BackupReportLogController {
 
     return res.send('OK');
   }
+
+  doA(): string {
+    return 'awdaw';
+  }
 }

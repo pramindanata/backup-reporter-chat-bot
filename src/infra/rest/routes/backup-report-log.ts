@@ -1,24 +1,30 @@
 import { Router } from 'express';
-import { container } from '@/infra/container';
 import { BackupReportLogController } from '@/adapters/rest/controllers';
+import {
+  ValidateBackupReportLogToken,
+  ValidateRequest,
+} from '@/adapters/rest/middlewares';
+import {
+  createFailedBackupReportLog,
+  createSuccessBackupReportLog,
+} from '@/adapters/rest/requests';
+import { wrapController as c, wrapMiddleware as m } from '../util';
 
 export function createBackupReportLogRouter(): Router {
   const router = Router();
-  const controller = container.resolve(BackupReportLogController);
-  const { failed, success } = controller;
 
   router.post(
     '/success',
-    // checkToken(),
-    // validateSchema(successSchema, 'body'),
-    success.bind(controller),
+    m(ValidateBackupReportLogToken),
+    m(ValidateRequest, createSuccessBackupReportLog, 'body'),
+    c(BackupReportLogController, 'success'),
   );
 
   router.post(
     '/failed',
-    // checkToken(),
-    // validateSchema(failedSchema, 'body'),
-    failed.bind(controller),
+    m(ValidateBackupReportLogToken),
+    m(ValidateRequest, createFailedBackupReportLog, 'body'),
+    c(BackupReportLogController, 'failed'),
   );
 
   return router;

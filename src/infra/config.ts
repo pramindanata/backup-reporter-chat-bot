@@ -1,9 +1,9 @@
 import { singleton } from 'tsyringe';
+import { BaseConfig } from '@/core/config';
 import { Environment } from './constant';
-import { BaseConfig } from './core/config';
 
 @singleton()
-export class Config extends BaseConfig<ConfigKeyDict> {
+export class InfraConfig extends BaseConfig<ConfigKeyDict> {
   protected props: Record<string, any>;
 
   constructor() {
@@ -18,7 +18,6 @@ export class Config extends BaseConfig<ConfigKeyDict> {
       rest: {
         host: env.REST_HOST || 'https://localhost',
         port: (env.REST_PORT && parseInt(env.REST_PORT)) || 4000,
-        reportAuthToken: env.REST_REPORT_AUTH_TOKEN || '',
       },
       bot: {
         webhookPath: env.BOT_WEBHOOK_PATH || '/secret-webhook',

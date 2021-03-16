@@ -7,14 +7,14 @@ moduleAlias.addAlias('@', __dirname);
 
 import { container } from 'tsyringe';
 import { createConnection } from 'typeorm';
-import { Config } from './infra/config';
+import { InfraConfig } from './infra/config';
 import { createREST } from './infra/rest';
 
 bootstrap();
 
 async function bootstrap() {
   await createConnection();
-  const config = container.resolve(Config);
+  const config = container.resolve(InfraConfig);
   const rest = createREST();
 
   rest.listen(config.get('rest.port'), () => {
