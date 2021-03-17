@@ -1,4 +1,5 @@
 import { AccessToken } from '@/entities';
+import { ORMTelegramAccountMapper } from '../telegram-account';
 import { ORMAccessToken } from './model';
 
 export class ORMAccessTokenMapper {
@@ -12,6 +13,9 @@ export class ORMAccessTokenMapper {
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
       telegramAccountId: model.telegramAccountId,
+      telegramAccount:
+        model.telegramAccount &&
+        ORMTelegramAccountMapper.toDomain(model.telegramAccount),
     });
 
     return accessToken;

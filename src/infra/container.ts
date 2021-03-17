@@ -1,3 +1,4 @@
+import Redis from 'redis';
 import { container, instanceCachingFactory } from 'tsyringe';
 import { Telegraf, Telegram } from 'telegraf';
 import { getCustomRepository } from 'typeorm';
@@ -14,6 +15,7 @@ import {
 import { ActivateAccessTokenUOW } from './db/uow';
 import { TelegramService } from './services/telegram';
 import { InfraConfig } from './config';
+import { RedisClientToken } from './constant';
 
 container.register(Telegraf, {
   useFactory: instanceCachingFactory((c) => {
@@ -32,6 +34,19 @@ container.register(Telegram, {
     const telegram = new Telegram(token);
 
     return telegram;
+  }),
+});
+
+container.register(RedisClientToken, {
+  useFactory: instanceCachingFactory((c) => {
+    const config = c.resolve(InfraConfig);
+
+    return Redis.createClient({
+      host: config.get('redis.host'),
+      port: config.get('redis.port'),
+      password: config.get('redis.password') || undefined,
+      prefix: config.get('redis.prefix'),
+    });
   }),
 });
 
