@@ -1,4 +1,4 @@
-import { AccessTokenDTO } from './access-token';
+import { AccessTokenDTO, AccessTokenDTOProps } from './access-token';
 
 export class TelegramAccountDTO {
   id: string;
@@ -27,5 +27,5 @@ export interface TelegramAccountDTOProps {
   firstName: string;
   createdAt: string;
   updatedAt: string;
-  accessToken?: AccessTokenDTO;
+  accessToken?: AccessTokenDTOProps;
 }

@@ -1,4 +1,7 @@
-import { TelegramAccountDTO } from './telegram-account';
+import {
+  TelegramAccountDTO,
+  TelegramAccountDTOProps,
+} from './telegram-account';
 
 export class AccessTokenDTO {
   id: string;
@@ -36,5 +39,5 @@ export interface AccessTokenDTOProps {
   createdAt: string;
   updatedAt: string;
   telegramAccountId?: string;
-  telegramAccount?: TelegramAccountDTO;
+  telegramAccount?: TelegramAccountDTOProps;
 }
