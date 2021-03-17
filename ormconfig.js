@@ -19,5 +19,5 @@ module.exports = {
   username: env.DB_USERNAME || 'postgres',
   password: env.DB_PASSWORD || '',
   logging: ['error'],
-  entities: [`${rootDir}/shared/models/*.{js,ts}`],
+  entities: [`${rootDir}/infra/db/entities/*/model.{js,ts}`],
 };

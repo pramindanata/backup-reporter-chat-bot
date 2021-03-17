@@ -5,31 +5,30 @@ import moduleAlias from 'module-alias';
 dotenv.config();
 moduleAlias.addAlias('@', __dirname);
 
+import { container } from 'tsyringe';
 import { RedisClient } from 'redis';
 import { createConnection } from 'typeorm';
+import { InfraConfig } from './infra/config';
+import { createREST } from './infra/rest';
+import { createPubSub } from './infra/pubsub';
+import { RedisClientToken } from './infra/constant';
 
-import { config } from '@/config';
-import { createServer } from '@/api';
-import { container } from '@/container';
-import { DepSymbol } from '@/shared/constant';
-import { PubSub } from '@/core/pubsub';
+bootstrap();
 
-main();
-
-async function main() {
+async function bootstrap() {
   await createConnection();
-
-  const redis = container.resolve<RedisClient>(DepSymbol.RedisClient);
-  const pubsub = container.resolve(PubSub);
+  const config = container.resolve(InfraConfig);
+  const redis = container.resolve<RedisClient>(RedisClientToken);
+  const pubsub = createPubSub();
+  const rest = createREST();
 
   pubsub.boot();
+
   redis.on('error', (err) => {
     console.error(err);
   });
 
-  const server = createServer();
-
-  server.listen(config.app.port, () => {
-    console.log(`[x] Server listening on port ${config.app.port}`);
+  rest.listen(config.get('rest.port'), () => {
+    console.log(`[x] Server listening on port ${config.get('rest.port')}`);
   });
 }
