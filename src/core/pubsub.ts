@@ -56,7 +56,3 @@ export abstract class BasePubSub<
 }
 
 type SubscriberHandler<T> = (payload: T) => Promise<void>;
-
-export interface Subscriber<T> {
-  handle: (payload: T) => Promise<void>;
-}
