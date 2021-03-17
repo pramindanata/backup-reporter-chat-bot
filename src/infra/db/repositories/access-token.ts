@@ -1,12 +1,21 @@
 import { AccessTokenRepositoryContract } from '@/app/contracts/repositories';
-import { AbstractRepository, EntityRepository } from 'typeorm';
-import { ORMAccessToken } from '../entities';
+import { AccessToken } from '@/entities';
+import { Repository, EntityRepository } from 'typeorm';
+import { ORMAccessToken, ORMAccessTokenMapper } from '../entities';
 
 @EntityRepository(ORMAccessToken)
 export class ORMAccessTokenRepository
-  extends AbstractRepository<ORMAccessToken>
+  extends Repository<ORMAccessToken>
   implements AccessTokenRepositoryContract {
-  doA(): string {
-    return 'string';
+  async getByValue(value: string): Promise<AccessToken | undefined> {
+    const token = await this.findOne({
+      value,
+    });
+
+    if (!token) {
+      return undefined;
+    }
+
+    return ORMAccessTokenMapper.toDomain(token);
   }
 }

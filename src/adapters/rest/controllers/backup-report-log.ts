@@ -1,10 +1,10 @@
-import { injectable } from 'tsyringe';
+import { singleton } from 'tsyringe';
 import { Request, Response } from 'express';
 import { BackupReportLogUseCase } from '@/app/use-cases';
 import { Event, EventType } from '@/adapters/event';
 import { FailedReport, SuccessReport } from '@/entities';
 
-@injectable()
+@singleton()
 export class BackupReportLogController {
   constructor(private useCase: BackupReportLogUseCase, private event: Event) {}
 

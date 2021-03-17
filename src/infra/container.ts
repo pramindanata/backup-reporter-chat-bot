@@ -1,7 +1,7 @@
 import { container, instanceCachingFactory } from 'tsyringe';
-import { Telegram } from 'telegraf';
+import { Telegraf, Telegram } from 'telegraf';
 import { getCustomRepository } from 'typeorm';
-import { RT, ST, VT } from '@/app/constant';
+import { RT, ST, UT, VT } from '@/app/constant';
 import {
   FailedBackupReportLogView,
   SuccessBackupReportLogView,
@@ -11,8 +11,19 @@ import {
   ORMBackupReportLogRepository,
   ORMTelegramAccountRepository,
 } from './db/repositories';
+import { ActivateAccessTokenUOW } from './db/uow';
 import { TelegramService } from './services/telegram';
 import { InfraConfig } from './config';
+
+container.register(Telegraf, {
+  useFactory: instanceCachingFactory((c) => {
+    const config = c.resolve(InfraConfig);
+    const token = config.get('bot.token');
+    const telegraf = new Telegraf(token);
+
+    return telegraf;
+  }),
+});
 
 container.register(Telegram, {
   useFactory: instanceCachingFactory((c) => {
@@ -37,6 +48,13 @@ container.register(RT.AccessTokenRepositoryContract, {
 
 container.register(RT.TelegramAccountRepositoryContract, {
   useFactory: () => getCustomRepository(ORMTelegramAccountRepository),
+});
+
+/**
+ * UT
+ */
+container.register(UT.ActivateAccessTokenUOWContract, {
+  useFactory: (c) => c.resolve(ActivateAccessTokenUOW),
 });
 
 /**

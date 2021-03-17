@@ -1,3 +1,5 @@
+import { AccessToken } from '@/entities';
+
 export interface AccessTokenRepositoryContract {
-  doA: () => string;
+  getByValue: (tokenValue: string) => Promise<AccessToken | undefined>;
 }

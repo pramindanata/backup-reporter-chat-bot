@@ -3,7 +3,7 @@ import { injectable } from 'tsyringe';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { PayloadSource } from '@/core/utils/joi';
 import { SchemaValidationException } from '../exceptions';
-import { MiddlewareFactory } from './middleware-factory';
+import { MiddlewareFactory } from './interface';
 
 @injectable()
 export class ValidateRequest implements MiddlewareFactory {

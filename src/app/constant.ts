@@ -12,6 +12,13 @@ export const RT = {
 };
 
 /**
+ * UOW Contract Token
+ */
+export const UT = {
+  ActivateAccessTokenUOWContract: Symbol('ActivateAccessTokenUOWContract'),
+};
+
+/**
  * View Contracts Token
  */
 export const VT = {

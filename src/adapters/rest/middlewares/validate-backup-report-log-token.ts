@@ -2,7 +2,7 @@ import { injectable } from 'tsyringe';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { AdapterConfig } from '@/adapters/config';
 import { InvalidTokenException } from '../exceptions';
-import { MiddlewareFactory } from './middleware-factory';
+import { MiddlewareFactory } from './interface';
 
 @injectable()
 export class ValidateBackupReportLogToken implements MiddlewareFactory {

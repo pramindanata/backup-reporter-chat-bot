@@ -1,4 +1,4 @@
-import { AbstractRepository, EntityRepository } from 'typeorm';
+import { Repository, EntityRepository } from 'typeorm';
 import { BackupReportLogRepositoryContract } from '@/app/contracts/repositories';
 import {
   BackupReportLog,
@@ -10,10 +10,10 @@ import { ORMBackupReportLog, ORMBackupReportLogMapper } from '../entities';
 
 @EntityRepository(ORMBackupReportLog)
 export class ORMBackupReportLogRepository
-  extends AbstractRepository<ORMBackupReportLog>
+  extends Repository<ORMBackupReportLog>
   implements BackupReportLogRepositoryContract {
   async createSuccessLog(report: SuccessReport): Promise<BackupReportLog> {
-    const log = await this.repository.save({
+    const log = await this.save({
       status: BackupReportLogStatus.SUCCESS,
       detail: report,
     });
@@ -22,7 +22,7 @@ export class ORMBackupReportLogRepository
   }
 
   async createFailedLog(report: FailedReport): Promise<BackupReportLog> {
-    const log = await this.repository.save({
+    const log = await this.save({
       status: BackupReportLogStatus.FAILED,
       detail: report,
     });
