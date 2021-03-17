@@ -1,14 +1,12 @@
 import { Telegram } from 'telegraf';
 import { injectable } from 'tsyringe';
-import { Subscriber } from '@/core/pubsub';
 import { AccessTokenDTO } from '@/adapters/dto';
 
 @injectable()
-export class AccessTokenDeletedSubscriber
-  implements Subscriber<AccessTokenDTO> {
+export class AccessTokenController {
   constructor(private telegram: Telegram) {}
 
-  async handle(payload: AccessTokenDTO): Promise<void> {
+  async deleted(payload: AccessTokenDTO): Promise<void> {
     const account = payload.telegramAccount;
 
     if (account) {

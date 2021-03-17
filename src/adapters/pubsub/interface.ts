@@ -1,10 +1,5 @@
 import { AccessTokenDTO } from '../dto';
-
-export * from './subscribers';
-
-export enum PubSubChannel {
-  AccessTokenDeleted = 'AccessTokenDeleted',
-}
+import { PubSubChannel } from './constant';
 
 export interface PubSubPayloadDict {
   [PubSubChannel.AccessTokenDeleted]: AccessTokenDTO;

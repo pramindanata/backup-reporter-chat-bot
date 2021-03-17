@@ -1,4 +1,5 @@
-import { PubSubChannel, PubSubPayloadDict } from '../pubsub';
+import { PubSubChannel } from '../pubsub/constant';
+import { PubSubPayloadDict } from '../pubsub/interface';
 
 export interface PubSubContract {
   publish<C extends PubSubChannel>(
