@@ -1,7 +1,10 @@
 import { Scenes, session, Telegraf } from 'telegraf';
 import { BotContext } from '@/adapters/bot/interface';
 import { CommandID } from '@/adapters/bot/constant';
-import { AuthController } from '@/adapters/bot/controllers';
+import {
+  AuthController,
+  InformationController,
+} from '@/adapters/bot/controllers';
 import { Guest, handleError, SetupState } from '@/adapters/bot/middlewares';
 import { RegisterScene } from '@/adapters/bot/scenes';
 import { container } from '../container';
@@ -20,6 +23,8 @@ export function createBot(): Telegraf<BotContext> {
   bot.use(stage.middleware());
 
   bot.command(CommandID.REGISTER, m(Guest), c(AuthController, 'register'));
+  bot.command(CommandID.START, c(InformationController, 'start'));
+  bot.command(CommandID.HELP, c(InformationController, 'help'));
 
   bot.on('text', (ctx) => {
     return ctx.reply('Command does not found.');
