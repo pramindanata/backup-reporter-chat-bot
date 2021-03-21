@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { SuccessReport } from '@/entities';
+import { SuccessReport } from '@/domain/entities';
 import { formatToReadableFileSize } from '@/core/utils/file';
 import { DateTimeFormat } from '@/adapters/constant';
 

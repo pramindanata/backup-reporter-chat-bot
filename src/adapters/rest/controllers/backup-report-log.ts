@@ -1,8 +1,8 @@
 import { singleton } from 'tsyringe';
 import { Request, Response } from 'express';
-import { BackupReportLogUseCase } from '@/app/use-cases';
+import { BackupReportLogUseCase } from '@/domain/use-cases';
 import { Event, EventType } from '@/adapters/event';
-import { FailedReport, SuccessReport } from '@/entities';
+import { FailedReport, SuccessReport } from '@/domain/entities';
 
 @singleton()
 export class BackupReportLogController {

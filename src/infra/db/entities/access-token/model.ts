@@ -1,4 +1,4 @@
-import { AccessTokenActivationStatus } from '@/entities';
+import { AccessTokenActivationStatus } from '@/domain/entities';
 import {
   Column,
   CreateDateColumn,

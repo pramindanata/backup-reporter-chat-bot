@@ -1,7 +1,7 @@
 import { User as TelegramUser } from 'typegram';
 import { EntityManager, getConnection } from 'typeorm';
-import { ActivateAccessTokenUOWContract } from '@/app/contracts/uow';
-import { AccessToken, AccessTokenActivationStatus } from '@/entities';
+import { ActivateAccessTokenUOWContract } from '@/domain/contracts/uow';
+import { AccessToken, AccessTokenActivationStatus } from '@/domain/entities';
 import {
   ORMAccessTokenRepository,
   ORMTelegramAccountRepository,

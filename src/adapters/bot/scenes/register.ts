@@ -1,6 +1,6 @@
 import { Scenes } from 'telegraf';
 import { injectable } from 'tsyringe';
-import { AccessTokenUseCase } from '@/app/use-cases';
+import { AccessTokenUseCase } from '@/domain/use-cases';
 import { CommandID, SceneID } from '../constant';
 import { BotContext } from '../interface';
 import { SceneFactory } from './interface';

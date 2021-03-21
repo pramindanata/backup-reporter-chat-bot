@@ -1,11 +1,11 @@
 import { Repository, EntityRepository } from 'typeorm';
-import { BackupReportLogRepositoryContract } from '@/app/contracts/repositories';
+import { BackupReportLogRepositoryContract } from '@/domain/contracts/repositories';
 import {
   BackupReportLog,
   BackupReportLogStatus,
   FailedReport,
   SuccessReport,
-} from '@/entities';
+} from '@/domain/entities';
 import { ORMBackupReportLog, ORMBackupReportLogMapper } from '../entities';
 
 @EntityRepository(ORMBackupReportLog)

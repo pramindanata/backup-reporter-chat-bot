@@ -1,4 +1,4 @@
-import { AccessToken } from '@/entities';
+import { AccessToken } from '@/domain/entities';
 import { ORMTelegramAccountMapper } from '../telegram-account';
 import { ORMAccessToken } from './model';
 

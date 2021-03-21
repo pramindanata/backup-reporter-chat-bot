@@ -1,6 +1,6 @@
-import { TelegramAccountRepositoryContract } from '@/app/contracts/repositories';
-import { ChunkCB } from '@/app/interface';
-import { TelegramAccount } from '@/entities';
+import { TelegramAccountRepositoryContract } from '@/domain/contracts/repositories';
+import { ChunkCB } from '@/domain/interface';
+import { TelegramAccount } from '@/domain/entities';
 import { Repository, EntityRepository } from 'typeorm';
 import { ORMTelegramAccount, ORMTelegramAccountMapper } from '../entities';
 import { chunkById } from '../util';

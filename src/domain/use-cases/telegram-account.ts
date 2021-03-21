@@ -1,4 +1,4 @@
-import { TelegramAccount } from '@/entities';
+import { TelegramAccount } from '@/domain/entities';
 import { inject, injectable } from 'tsyringe';
 import { RT } from '../constant';
 import { TelegramAccountRepositoryContract } from '../contracts/repositories';

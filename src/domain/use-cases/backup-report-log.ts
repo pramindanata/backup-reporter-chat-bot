@@ -4,7 +4,7 @@ import {
   TelegramAccount,
   FailedReport,
   SuccessReport,
-} from '@/entities';
+} from '@/domain/entities';
 import { RT, ST, VT } from '../constant';
 import {
   BackupReportLogRepositoryContract,

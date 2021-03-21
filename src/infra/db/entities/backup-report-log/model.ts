@@ -11,7 +11,7 @@ import {
   BackupReportLogStatus,
   FailedReport,
   SuccessReport,
-} from '@/entities/backup-report-log';
+} from '@/domain/entities/backup-report-log';
 
 @Entity({
   name: 'backup_report_logs',

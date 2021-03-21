@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { FailedReport } from '@/entities';
+import { FailedReport } from '@/domain/entities';
 import { DateTimeFormat } from '@/adapters/constant';
 
 export class FailedBackupReportLogView {

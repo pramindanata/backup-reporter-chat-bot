@@ -1,4 +1,4 @@
-import { TelegramAccount } from '@/entities';
+import { TelegramAccount } from '@/domain/entities';
 import { ORMTelegramAccount } from './model';
 
 export class ORMTelegramAccountMapper {

@@ -2,7 +2,7 @@ import Redis from 'redis';
 import { container, instanceCachingFactory } from 'tsyringe';
 import { Telegraf, Telegram } from 'telegraf';
 import { getCustomRepository } from 'typeorm';
-import { RT, ST, UT, VT } from '@/app/constant';
+import { RT, ST, UT, VT } from '@/domain/constant';
 import {
   FailedBackupReportLogView,
   SuccessBackupReportLogView,

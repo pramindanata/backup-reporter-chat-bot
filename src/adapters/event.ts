@@ -1,6 +1,6 @@
 import { singleton } from 'tsyringe';
 import { BaseEvent } from '@/core/event';
-import { FailedReport, SuccessReport } from '@/entities';
+import { FailedReport, SuccessReport } from '@/domain/entities';
 import { SendFailedReport, SendSuccessReport } from './listeners';
 
 @singleton()

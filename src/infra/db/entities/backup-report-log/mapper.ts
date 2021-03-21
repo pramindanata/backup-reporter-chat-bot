@@ -1,4 +1,4 @@
-import { BackupReportLog } from '@/entities/backup-report-log';
+import { BackupReportLog } from '@/domain/entities/backup-report-log';
 import { ORMBackupReportLog } from './model';
 
 export class ORMBackupReportLogMapper {

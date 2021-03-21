@@ -1,6 +1,6 @@
-import { BackupReportLogUseCase } from '@/app/use-cases';
+import { BackupReportLogUseCase } from '@/domain/use-cases';
 import { EventListener } from '@/core/event';
-import { FailedReport } from '@/entities';
+import { FailedReport } from '@/domain/entities';
 import { injectable } from 'tsyringe';
 
 @injectable()

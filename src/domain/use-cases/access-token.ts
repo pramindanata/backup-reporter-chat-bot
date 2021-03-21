@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import { User as TelegramUser } from 'typegram';
-import { AccessToken } from '@/entities';
+import { AccessToken } from '@/domain/entities';
 import { RT, UT } from '../constant';
 import { AccessTokenRepositoryContract } from '../contracts/repositories';
 import { ActivateAccessTokenUOWContract } from '../contracts/uow';

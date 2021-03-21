@@ -1,4 +1,4 @@
-import { TelegramServiceContract } from '@/app/contracts/services';
+import { TelegramServiceContract } from '@/domain/contracts/services';
 import { Telegram } from 'telegraf';
 import { injectable } from 'tsyringe';
 

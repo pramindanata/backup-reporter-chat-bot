@@ -1,6 +1,6 @@
 import { Middleware } from 'telegraf';
 import { injectable } from 'tsyringe';
-import { TelegramAccountUseCase } from '@/app/use-cases';
+import { TelegramAccountUseCase } from '@/domain/use-cases';
 import { BotContext } from '../interface';
 import { MiddlewareFactory } from './interface';
 

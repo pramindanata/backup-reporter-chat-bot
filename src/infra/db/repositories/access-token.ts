@@ -1,5 +1,5 @@
-import { AccessTokenRepositoryContract } from '@/app/contracts/repositories';
-import { AccessToken } from '@/entities';
+import { AccessTokenRepositoryContract } from '@/domain/contracts/repositories';
+import { AccessToken } from '@/domain/entities';
 import { Repository, EntityRepository } from 'typeorm';
 import { ORMAccessToken, ORMAccessTokenMapper } from '../entities';
 
