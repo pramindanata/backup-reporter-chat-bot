@@ -2,7 +2,7 @@ import Redis from 'redis';
 import { container, instanceCachingFactory } from 'tsyringe';
 import { Telegraf, Telegram } from 'telegraf';
 import { getCustomRepository } from 'typeorm';
-import { RT, ST, UT, VT } from '@/domain/constant';
+import { CT, RT, ST, UT, VT } from '@/domain/constant';
 import {
   FailedBackupReportLogView,
   SuccessBackupReportLogView,
@@ -16,6 +16,7 @@ import { ActivateAccessTokenUOW } from './db/uow';
 import { TelegramService } from './services/telegram';
 import { InfraConfig } from './config';
 import { RedisClientToken } from './constant';
+import { DomainEvent } from './domain-event';
 
 container.register(Telegraf, {
   useFactory: instanceCachingFactory((c) => {
@@ -48,6 +49,13 @@ container.register(RedisClientToken, {
       prefix: config.get('redis.prefix'),
     });
   }),
+});
+
+/**
+ * CT
+ */
+container.register(CT.DomainEventContract, {
+  useFactory: (c) => c.resolve(DomainEvent),
 });
 
 /**

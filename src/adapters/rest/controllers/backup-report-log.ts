@@ -1,12 +1,18 @@
-import { singleton } from 'tsyringe';
+import { inject, singleton } from 'tsyringe';
 import { Request, Response } from 'express';
-import { BackupReportLogUseCase } from '@/domain/use-cases';
-import { Event, EventType } from '@/adapters/event';
+import { DomainEventName } from '@/domain/event';
 import { FailedReport, SuccessReport } from '@/domain/entities';
+import { BackupReportLogUseCase } from '@/domain/use-cases';
+import { DomainEventContract } from '@/domain/contracts';
+import { CT } from '@/domain/constant';
 
 @singleton()
 export class BackupReportLogController {
-  constructor(private useCase: BackupReportLogUseCase, private event: Event) {}
+  constructor(
+    private useCase: BackupReportLogUseCase,
+    @inject(CT.DomainEventContract)
+    private event: DomainEventContract,
+  ) {}
 
   async success(req: Request, res: Response): Promise<any> {
     const { body } = req;
@@ -14,7 +20,7 @@ export class BackupReportLogController {
 
     await this.useCase.createSuccessLog(report);
 
-    this.event.emit(EventType.SUCCESS_REPORT_RECEIVED, report);
+    this.event.emit(DomainEventName.SUCCESS_REPORT_RECEIVED, report);
 
     return res.send('OK');
   }
@@ -25,12 +31,8 @@ export class BackupReportLogController {
 
     await this.useCase.createFailedLog(report);
 
-    this.event.emit(EventType.FAILED_REPORT_RECEIVED, report);
+    this.event.emit(DomainEventName.FAILED_REPORT_RECEIVED, report);
 
     return res.send('OK');
-  }
-
-  doA(): string {
-    return 'awdaw';
   }
 }

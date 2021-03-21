@@ -1,4 +1,11 @@
 /**
+ * Core Contracts Tokek
+ */
+export const CT = {
+  DomainEventContract: Symbol('DomainContractEvent'),
+};
+
+/**
  * Repo Contracts Token
  */
 export const RT = {
