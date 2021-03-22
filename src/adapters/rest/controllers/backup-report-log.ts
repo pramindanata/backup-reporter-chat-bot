@@ -1,6 +1,6 @@
 import { inject, singleton } from 'tsyringe';
 import { Request, Response } from 'express';
-import { DomainEventName } from '@/domain/event';
+import { EventName } from '@/domain/event';
 import { FailedReport, SuccessReport } from '@/domain/entities';
 import { BackupReportLogUseCase } from '@/domain/use-cases';
 import { DomainEventContract } from '@/domain/contracts';
@@ -20,7 +20,7 @@ export class BackupReportLogController {
 
     await this.useCase.createSuccessLog(report);
 
-    this.event.emit(DomainEventName.SUCCESS_REPORT_RECEIVED, report);
+    this.event.emit(EventName.SUCCESS_REPORT_RECEIVED, report);
 
     return res.send('OK');
   }
@@ -31,7 +31,7 @@ export class BackupReportLogController {
 
     await this.useCase.createFailedLog(report);
 
-    this.event.emit(DomainEventName.FAILED_REPORT_RECEIVED, report);
+    this.event.emit(EventName.FAILED_REPORT_RECEIVED, report);
 
     return res.send('OK');
   }
