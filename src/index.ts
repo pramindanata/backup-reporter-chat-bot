@@ -10,8 +10,9 @@ import { RedisClient } from 'redis';
 import { createConnection } from 'typeorm';
 import { InfraConfig } from './infra/config';
 import { createREST } from './infra/rest';
-import { createPubSub } from './infra/pubsub';
+import { PubSub } from './infra/pubsub';
 import { RedisClientToken } from './infra/constant';
+import { DomainEvent } from './infra/domain-event';
 
 bootstrap();
 
@@ -19,16 +20,20 @@ async function bootstrap() {
   await createConnection();
   const config = container.resolve(InfraConfig);
   const redis = container.resolve<RedisClient>(RedisClientToken);
-  const pubsub = createPubSub();
+  const pubsub = container.resolve(PubSub);
+  const domainEvent = container.resolve(DomainEvent);
   const rest = createREST();
 
-  pubsub.boot();
+  domainEvent.boot(onError);
+  pubsub.boot(onError);
 
-  redis.on('error', (err) => {
-    console.error(err);
-  });
+  redis.on('error', onError);
 
   rest.listen(config.get('rest.port'), () => {
     console.log(`[x] Server listening on port ${config.get('rest.port')}`);
   });
+}
+
+async function onError(err: any) {
+  console.error(err);
 }

@@ -4,13 +4,40 @@ import { AnyEnum, Ctor } from './interface';
 
 export abstract class BaseEvent<E extends AnyEnum, D extends Record<any, any>> {
   private eventEmitter: EventEmitter;
-  private eventListenerDict: Record<string, boolean> = {};
+  private eventListenerDict: Record<string, Ctor<EventListener<D[any]>>> = {};
 
   constructor() {
     this.eventEmitter = new EventEmitter();
   }
 
-  emit<T extends E>(event: T, payload: D[T]): boolean {
+  protected abstract register(): void;
+
+  boot(onError?: OnError): void {
+    this.register();
+
+    for (const eventName in this.eventListenerDict) {
+      const ctor = this.eventListenerDict[eventName];
+      const listener = container.resolve(ctor);
+
+      this.eventEmitter.addListener(eventName, (payload) => {
+        listener.handle(payload).catch((err) => {
+          this.eventEmitter.emit('error', err);
+        });
+      });
+    }
+
+    this.eventEmitter.on('error', async (err) => {
+      if (onError) {
+        await onError(err);
+
+        return;
+      }
+
+      throw err;
+    });
+  }
+
+  dispatch<T extends E>(event: T, payload: D[T]): boolean {
     if (!this.shouldListenerExist(event)) {
       throw new ListenerNotFoundException(event);
     }
@@ -18,22 +45,12 @@ export abstract class BaseEvent<E extends AnyEnum, D extends Record<any, any>> {
     return this.eventEmitter.emit(event, payload);
   }
 
-  protected addListener<T extends E>(
-    event: T,
-    listenerCtor: Ctor<EventListener<D[T]>>,
-  ): void {
-    const listener = container.resolve(listenerCtor);
+  listen<T extends E>(event: T, listenerCtor: Ctor<EventListener<D[T]>>): void {
+    if (this.eventListenerDict[event]) {
+      throw new Error(`Listener for event "${event}" already exists.`);
+    }
 
-    this.eventListenerDict[event] = true;
-    this.eventEmitter.addListener(event, (payload) => {
-      listener.handle(payload).catch((err) => {
-        this.eventEmitter.emit('error', err);
-      });
-    });
-  }
-
-  protected onError(listener: (payload: any) => void): void {
-    this.eventEmitter.on('error', listener);
+    this.eventListenerDict[event] = listenerCtor;
   }
 
   private shouldListenerExist(event: string): boolean {
@@ -54,3 +71,5 @@ class ListenerNotFoundException extends Error {
     super(`Listener for event "${event}" does not found.`);
   }
 }
+
+type OnError = (err: any) => Promise<void>;

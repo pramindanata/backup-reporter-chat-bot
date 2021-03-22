@@ -9,7 +9,18 @@ export abstract class BasePubSub<
 
   constructor(private client: RedisClient) {}
 
-  boot(): void {
+  /**
+   * Register subscribers from here
+   */
+  protected abstract register(): void;
+
+  boot(onError?: OnError): void {
+    this.register();
+
+    for (const channel in this.subscriberHandlerDict) {
+      this.client.subscribe(channel);
+    }
+
     this.client.on('subscribe', (channel) => {
       console.log(`[x] PubSub channel "${channel}" subscribed`);
     });
@@ -23,6 +34,12 @@ export abstract class BasePubSub<
         try {
           handler(payload);
         } catch (err) {
+          if (onError) {
+            await onError(err);
+
+            return;
+          }
+
           throw err;
         }
       }
@@ -45,10 +62,8 @@ export abstract class BasePubSub<
     channel: C,
     handler: SubscriberHandler<PayloadDict[C]>,
   ): void {
-    this.client.subscribe(channel);
-
     if (this.subscriberHandlerDict[channel]) {
-      throw new Error(`Handler for "${channel}" already exists.`);
+      throw new Error(`Subscriber for channel "${channel}" already exists.`);
     }
 
     this.subscriberHandlerDict[channel] = handler;
@@ -56,3 +71,4 @@ export abstract class BasePubSub<
 }
 
 type SubscriberHandler<T> = (payload: T) => Promise<void>;
+type OnError = (err: any) => Promise<void>;

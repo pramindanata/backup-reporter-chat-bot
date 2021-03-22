@@ -1,8 +1,8 @@
-import { DomainEventName, DomainEventPayloadDict } from '@/domain/event';
+import { EventName, EventPayloadDict } from '@/domain/event';
 
-export interface DomainEventContract {
-  emit<E extends DomainEventName>(
+export interface EventContract {
+  dispatch<E extends EventName>(
     event: E,
-    payload: DomainEventPayloadDict[E],
+    payload: EventPayloadDict[E],
   ): boolean;
 }
