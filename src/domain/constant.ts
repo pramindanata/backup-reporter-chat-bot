@@ -1,5 +1,5 @@
 /**
- * Core Contracts Tokek
+ * Core Contracts Token
  */
 export const CT = {
   DomainEventContract: Symbol('DomainContractEvent'),
