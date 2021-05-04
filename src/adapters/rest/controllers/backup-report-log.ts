@@ -7,7 +7,7 @@ import { Event } from '@/domain/constant';
 import {
   FailedReportReceivedEvent,
   SuccessReportReceivedEvent,
-} from '@/adapters/events';
+} from '@/domain/events';
 
 @singleton()
 export class BackupReportLogController {
