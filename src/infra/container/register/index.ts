@@ -1,4 +1,4 @@
-export * from './core';
+export * from './event';
 export * from './infra';
 export * from './repository';
 export * from './service';

@@ -1,13 +1,13 @@
-import { BackupReportLogUseCase } from '@/domain/use-cases';
-import { EventListener } from '@/core/event';
-import { FailedReport } from '@/domain/entities';
 import { injectable } from 'tsyringe';
+import { EventListener } from '@/core/event-emitter';
+import { BackupReportLogUseCase } from '@/domain/use-cases';
+import { FailedReportReceivedEvent } from '../events';
 
 @injectable()
-export class SendFailedReport implements EventListener<FailedReport> {
+export class SendFailedReport implements EventListener {
   constructor(private useCase: BackupReportLogUseCase) {}
 
-  async handle(payload: FailedReport): Promise<void> {
-    await this.useCase.sendFailedReportToAllAccount(payload);
+  async handle(payload: FailedReportReceivedEvent): Promise<void> {
+    await this.useCase.sendFailedReportToAllAccount(payload.report);
   }
 }

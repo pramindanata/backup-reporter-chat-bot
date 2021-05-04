@@ -12,7 +12,7 @@ import { InfraConfig } from './infra/config';
 import { createREST } from './infra/rest';
 import { PubSub } from './infra/pubsub';
 import { RedisClientToken } from './infra/constant';
-import { DomainEvent } from './infra/domain-event';
+import { EventEmitterManager } from './core/event-emitter';
 
 bootstrap();
 
@@ -21,10 +21,10 @@ async function bootstrap() {
   const config = container.resolve(InfraConfig);
   const redis = container.resolve<RedisClient>(RedisClientToken);
   const pubsub = container.resolve(PubSub);
-  const domainEvent = container.resolve(DomainEvent);
+  const eventEmitterManager = container.resolve(EventEmitterManager);
   const rest = createREST();
 
-  domainEvent.boot(onError);
+  eventEmitterManager.boot(onError);
   pubsub.boot(onError);
 
   redis.on('error', onError);

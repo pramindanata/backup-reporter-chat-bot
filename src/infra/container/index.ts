@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 import {
-  registerCoreProviders,
+  registerEventProviders,
   registerInfraProviders,
   registerRepositoryProviders,
   registerServiceProviders,
@@ -9,7 +9,7 @@ import {
 } from './register';
 
 const registerFunctions = [
-  registerCoreProviders,
+  registerEventProviders,
   registerInfraProviders,
   registerRepositoryProviders,
   registerServiceProviders,

@@ -1,17 +1,19 @@
-import { inject, singleton } from 'tsyringe';
+import { singleton } from 'tsyringe';
 import { Request, Response } from 'express';
-import { EventName } from '@/domain/event';
 import { FailedReport, SuccessReport } from '@/domain/entities';
 import { BackupReportLogUseCase } from '@/domain/use-cases';
-import { EventContract } from '@/domain/contracts';
-import { CT } from '@/domain/constant';
+import { MyEventEmitter } from '@/core/event-emitter';
+import { Event } from '@/domain/constant';
+import {
+  FailedReportReceivedEvent,
+  SuccessReportReceivedEvent,
+} from '@/adapters/events';
 
 @singleton()
 export class BackupReportLogController {
   constructor(
     private useCase: BackupReportLogUseCase,
-    @inject(CT.DomainEventContract)
-    private event: EventContract,
+    private eventEmitter: MyEventEmitter,
   ) {}
 
   async success(req: Request, res: Response): Promise<any> {
@@ -20,7 +22,10 @@ export class BackupReportLogController {
 
     await this.useCase.createSuccessLog(report);
 
-    this.event.dispatch(EventName.SUCCESS_REPORT_RECEIVED, report);
+    this.eventEmitter.emit(
+      Event.SUCCESS_REPORT_RECEIVED,
+      new SuccessReportReceivedEvent(report),
+    );
 
     return res.send('OK');
   }
@@ -31,7 +36,10 @@ export class BackupReportLogController {
 
     await this.useCase.createFailedLog(report);
 
-    this.event.dispatch(EventName.FAILED_REPORT_RECEIVED, report);
+    this.eventEmitter.emit(
+      Event.FAILED_REPORT_RECEIVED,
+      new FailedReportReceivedEvent(report),
+    );
 
     return res.send('OK');
   }
