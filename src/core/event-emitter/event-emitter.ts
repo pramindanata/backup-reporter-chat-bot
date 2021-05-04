@@ -10,7 +10,7 @@ export class MyEventEmitter {
     this.eventEmitter = new EventEmitter();
   }
 
-  emit(name: string, payload: unknown): boolean {
+  emit(name: string | symbol, payload: unknown): boolean {
     return this.eventEmitter.emit(name, payload);
   }
 

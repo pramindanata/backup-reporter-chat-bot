@@ -1,5 +1,5 @@
 import { SuccessReport } from '@/domain/entities';
 
-export class SuccessReportReceivedEvent {
+export class SuccessReportReceivedEventPayload {
   constructor(public report: SuccessReport) {}
 }

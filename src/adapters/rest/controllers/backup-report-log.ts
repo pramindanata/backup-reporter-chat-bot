@@ -3,10 +3,10 @@ import { Request, Response } from 'express';
 import { FailedReport, SuccessReport } from '@/domain/entities';
 import { BackupReportLogUseCase } from '@/domain/use-cases';
 import { MyEventEmitter } from '@/core/event-emitter';
-import { Event } from '@/domain/constant';
 import {
-  FailedReportReceivedEvent,
-  SuccessReportReceivedEvent,
+  Event,
+  FailedReportReceivedEventPayload,
+  SuccessReportReceivedEventPayload,
 } from '@/domain/events';
 
 @singleton()
@@ -23,8 +23,8 @@ export class BackupReportLogController {
     await this.useCase.createSuccessLog(report);
 
     this.eventEmitter.emit(
-      Event.SUCCESS_REPORT_RECEIVED,
-      new SuccessReportReceivedEvent(report),
+      Event.SuccessReportReceived,
+      new SuccessReportReceivedEventPayload(report),
     );
 
     return res.send('OK');
@@ -37,8 +37,8 @@ export class BackupReportLogController {
     await this.useCase.createFailedLog(report);
 
     this.eventEmitter.emit(
-      Event.FAILED_REPORT_RECEIVED,
-      new FailedReportReceivedEvent(report),
+      Event.FailedReportReceived,
+      new FailedReportReceivedEventPayload(report),
     );
 
     return res.send('OK');

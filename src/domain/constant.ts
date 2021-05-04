@@ -1,15 +1,3 @@
-export enum Event {
-  SUCCESS_REPORT_RECEIVED = 'SUCCESS_REPORT_RECEIVED',
-  FAILED_REPORT_RECEIVED = 'FAILED_REPORT_RECEVIED',
-}
-
-/**
- * Core Contracts Token
- */
-export const CT = {
-  DomainEventContract: Symbol('DomainContractEvent'),
-};
-
 /**
  * Repo Contracts Token
  */
