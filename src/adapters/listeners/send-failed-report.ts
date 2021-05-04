@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe';
-import { EventListener } from '@/core/event-emitter';
 import { BackupReportLogUseCase } from '@/domain/use-cases';
 import { FailedReportReceivedEventPayload } from '@/domain/events';
+import { EventListener } from '../contracts';
 
 @injectable()
 export class SendFailedReport implements EventListener {

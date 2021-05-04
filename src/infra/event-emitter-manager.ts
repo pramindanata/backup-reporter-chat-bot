@@ -1,15 +1,16 @@
 import { inject, singleton } from 'tsyringe';
+import { MyEventEmitter } from '@/core/event-emitter';
 import { container } from '@/infra/container';
-import { MyEventEmitter } from './event-emitter';
-import { EventDictToken } from './constant';
-import { EventDict, EventListener, OnError } from './interface';
+import { EventListener } from '@/adapters/contracts';
+import { EventListenerDictToken } from './constant';
+import { EventListenerDict } from './interface';
 
 @singleton()
 export class EventEmitterManager {
   constructor(
     private eventEmitter: MyEventEmitter,
-    @inject(EventDictToken)
-    private eventDict: EventDict,
+    @inject(EventListenerDictToken)
+    private eventListenerDict: EventListenerDict,
   ) {}
 
   boot(onError?: OnError): void {
@@ -21,8 +22,8 @@ export class EventEmitterManager {
   }
 
   private loadListeners(): void {
-    for (const event in this.eventDict) {
-      const listenerCtors = this.eventDict[event];
+    for (const event in this.eventListenerDict) {
+      const listenerCtors = this.eventListenerDict[event];
 
       if (listenerCtors.length > 0) {
         for (const ctor of listenerCtors) {
@@ -60,3 +61,5 @@ export class EventEmitterManager {
     });
   }
 }
+
+type OnError = (err: any) => Promise<void>;

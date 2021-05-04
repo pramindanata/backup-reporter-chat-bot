@@ -12,7 +12,7 @@ import { InfraConfig } from './infra/config';
 import { createREST } from './infra/rest';
 import { PubSub } from './infra/pubsub';
 import { RedisClientToken } from './infra/constant';
-import { EventEmitterManager } from './core/event-emitter';
+import { EventEmitterManager } from './infra/event-emitter-manager';
 
 bootstrap();
 

@@ -4,3 +4,4 @@ export enum Environment {
 }
 
 export const RedisClientToken = Symbol('RedisClient');
+export const EventListenerDictToken = Symbol('EventListenerDictToken');

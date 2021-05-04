@@ -1,13 +1,14 @@
 import { DependencyContainer } from 'tsyringe';
 import { SendFailedReport, SendSuccessReport } from '@/adapters/listeners';
-import { EventDict, EventDictToken } from '@/core/event-emitter';
-import { RegisterDepedencyProviders } from '../interface';
 import { Event } from '@/domain/events';
+import { EventListenerDict } from '@/infra/interface';
+import { EventListenerDictToken } from '@/infra/constant';
+import { RegisterDepedencyProviders } from '../interface';
 
 export const registerEventProviders: RegisterDepedencyProviders = (
   container: DependencyContainer,
 ) => {
-  container.register<EventDict>(EventDictToken, {
+  container.register<EventListenerDict>(EventListenerDictToken, {
     useValue: {
       [Event.SuccessReportReceived]: [SendSuccessReport],
       [Event.FailedReportReceived]: [SendFailedReport],

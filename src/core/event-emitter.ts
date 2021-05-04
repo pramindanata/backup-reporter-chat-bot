@@ -1,6 +1,5 @@
 import EventEmitter from 'events';
 import { singleton } from 'tsyringe';
-import { ListenerHandler } from './interface';
 
 @singleton()
 export class MyEventEmitter {
@@ -18,3 +17,5 @@ export class MyEventEmitter {
     this.eventEmitter.on(name, handler);
   }
 }
+
+type ListenerHandler = (...args: any[]) => void;
